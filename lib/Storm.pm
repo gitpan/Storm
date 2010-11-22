@@ -1,6 +1,6 @@
 package Storm;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our $AUTHORITY = 'cpan:JHALLOCK';
 
 use Moose;
@@ -187,7 +187,7 @@ Storm - Object-relational mapping
 
 =head1 TUTORIAL
 
-If you're new to L<Storm> check out L<Storm::Manual::Intro>.
+If you're new to L<Storm> check out L<Storm::Tutorial>.
 
 =head1 SYNOPSIS
 
@@ -370,9 +370,28 @@ database.
 
 =back
 
+=head1 CAVEATS/LIMITATIONS
+
+=head2 Databases
+
+L<Storm> has only been tested using MySQL and SQLite.
+
+=head1 BUGS
+
+Please report bugs by going to http://blue-aeolus.com/storm/
+
 =head1 AUTHOR
 
 Jeffrey Ray Hallock E<lt>jeffrey.hallock at gmail dot comE<gt>
+
+Special thanks to Yuval Kogman and Dave Rolsky, for who without their talented
+work and inspiration this library would not be possible.
+
+The code for managing the live object set and the scope relies on modified
+code written by Yuval Kogman for L<KiokuDB>.
+
+The code for managing the policy and generating sql statements relies on
+modified code written by Dave Rolsky for L<Fey> and L<Fey::ORM>.
 
 =head1 COPYRIGHT
 

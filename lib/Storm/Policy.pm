@@ -2,7 +2,9 @@ package Storm::Policy;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+#
+# code modified from Dave Rolsky's Fey::ORM module
+#
 
 use Storm::Policy::Object;
 
@@ -108,6 +110,8 @@ use.
 =head1 AUTHOR
 
 Jeffrey Ray Hallock E<lt>jeffrey.hallock at gmail dot comE<gt>
+
+Modified from code in Dave Rolsky's L<Fey::ORM> module.
 
 =head1 COPYRIGHT
 
