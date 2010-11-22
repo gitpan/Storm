@@ -432,11 +432,11 @@ snippet that demonstrates why:
     # $homer has a refcount of 1 because it's the return value
     # $marge has a refcount of 0, and gets destroyed
     # the weak reference in $homer->spouse is cleared
-}
+ }
 
-my $homer = get_homer();
+ my $homer = get_homer();
 
-$homer->spouse; # this returns undef
+ $homer->spouse; # this returns undef
 
 
 By using this idiom:
@@ -454,8 +454,8 @@ In a web application context, you usually create one new scope per request.
 =head2 Credit
 
 The live object scope was largely inspired by the L<KiokuDB> module. Some of the
-code and documentation for this functionality was used under license directly
-from the L<KiokuDB> source.
+code and documentation for this functionality was taken directly from the
+L<KiokuDB> source (and possibly modified.)
 
 =head1 TRANSACTIONS
 
@@ -499,6 +499,11 @@ inflated/deflated.
 
  $storm->new( source => ..., policy => 'My::Policy' );
 
+=head2 Credit
+
+The policy was inspired by the L<Fey::ORM> module. Some of the code this
+functionality was taken directly from theL<Fey::ORM> source (and possibly
+modified.)
 
 =over 4
 

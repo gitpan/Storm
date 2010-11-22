@@ -1,6 +1,6 @@
 package Storm;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 our $AUTHORITY = 'cpan:JHALLOCK';
 
 use Moose;
@@ -242,6 +242,11 @@ If you're new to L<Storm> check out L<Storm::Tutorial>.
 L<Storm> is a Moose based library for storing and retrieving objects from a
 L<DBI> connection.
 
+=head1 ALPHA VERSION
+
+*THIS IS NEW SOFTWARE. IT IS STILL IN DEVELOPMENT. THE API MAY CHANGE IN FUTURE
+VERSIONS WITH NO NOTICE.*
+
 
 =head1 ATTRIBUTES
 
@@ -388,7 +393,8 @@ Special thanks to Yuval Kogman and Dave Rolsky, for who without their talented
 work and inspiration this library would not be possible.
 
 The code for managing the live object set and the scope relies on modified
-code written by Yuval Kogman for L<KiokuDB>.
+code written by Yuval Kogman for L<KiokuDB>. Documentation for this feature was
+also taken from L<KiokuDB>.
 
 The code for managing the policy and generating sql statements relies on
 modified code written by Dave Rolsky for L<Fey> and L<Fey::ORM>.
