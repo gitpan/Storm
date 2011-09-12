@@ -4,7 +4,6 @@ package Storm::Source;
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use Storm::Types qw( StormPolicyObject StormSourceManager );
 use MooseX::Types::Moose qw( ArrayRef );
@@ -23,7 +22,8 @@ has 'parameters' => (
     }
 );
 
-method set_parameters ( @params ) {
+sub set_parameters {
+    my ( $self, @params ) = @_;
     $self->_set_parameters( \@params );
 }
 
@@ -31,7 +31,8 @@ has '_dbh' => (
     is  => 'rw',
     isa => 'DBI::db',
     reader => '_dbh' ,
-    writer => '_set_dbh'
+    writer => '_set_dbh',
+    clearer => '_clear_dbh',
 );
 
 
@@ -87,7 +88,9 @@ sub _params_from_file {
     
 }
 
-method dbh ( ) {    
+sub dbh  {
+    my ( $self ) = @_;
+    
     # return current connection if active
     if ($self->_dbh && $self->_dbh->{Active}) {
         return $self->_dbh;
@@ -99,7 +102,16 @@ method dbh ( ) {
     return $dbh;
 }
 
-method tables ( ) {
+
+sub disconnect {
+    my ( $self ) = @_;
+    $self->_dbh->disconnect if ( $self->_dbh );
+    $self->_clear_dbh;
+}
+
+
+sub tables  {
+    my ( $self ) = @_;
     my @tables;
     my $dbh = $self->dbh;
     
@@ -126,7 +138,8 @@ method tables ( ) {
     return @tables;
 }
 
-method auto_increment_token ( ) {
+sub auto_increment_token {
+    my ( $self ) = @_;
     if ( $self->dbh->{sqlite_version} ) {
         return 'AUTOINCREMENT';
     }
@@ -135,7 +148,8 @@ method auto_increment_token ( ) {
     }
 }
 
-method disable_foreign_key_checks ( ) {
+sub disable_foreign_key_checks {
+    my ( $self ) = @_;
     if ( $self->dbh->{sqlite_version} ) {
         $self->dbh->do('PRAGMA foreign_keys = OFF;');
         confess $self->dbh->errstr if $self->dbh->err;
@@ -146,7 +160,8 @@ method disable_foreign_key_checks ( ) {
     }
 }
 
-method enable_foreign_key_checks ( ) {
+sub enable_foreign_key_checks {
+    my ( $self ) = @_;
     if ( $self->dbh->{sqlite_version} ) {
         $self->dbh->do('PRAGMA foreign_keys = ON;');
         confess $self->dbh->errstr if $self->dbh->err;

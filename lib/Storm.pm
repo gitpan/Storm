@@ -1,12 +1,11 @@
 package Storm;
 
-our $VERSION = '0.03';
+our $VERSION = '0.09';
 our $AUTHORITY = 'cpan:JHALLOCK';
 
 use Moose;
 use MooseX::StrictConstructor;
 use MooseX::SemiAffordanceAccessor;
-use MooseX::Method::Signatures;
 
 use Storm::Aeolus;
 use Storm::LiveObjects;
@@ -49,7 +48,8 @@ has 'source' => (
     coerce => 1,
 );
 
-method delete ( @objects ) {
+sub delete {
+    my ( $self, @objects ) = @_;
     my %queries;
     
     for my $o ( @objects ) {
@@ -63,19 +63,24 @@ method delete ( @objects ) {
 
 
 
-method delete_query ( ClassName $class ) {
+sub delete_query {
+    my ( $self, $class ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
     Storm::Query::Delete->new( $self, $class );
 }
 
 
 
-method do_transaction ( CodeRef $code ) {
+sub do_transaction {
+    my ( $self, $code ) = @_;
     $self->new_transaction($code)->commit;
 }
 
 
 
-method insert ( @objects ) {
+sub insert  {
+    my ( $self, @objects ) = @_;
+    
     my %queries;
     
     for my $o ( @objects ) {
@@ -89,13 +94,18 @@ method insert ( @objects ) {
 
 
 
-method insert_query ( ClassName $class ) {
+sub insert_query {
+    my ( $self, $class ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
     Storm::Query::Insert->new( $self, $class );
 }
 
 
 
-method lookup ( ClassName $class, @ids ) {
+sub lookup  {
+    my ( $self, $class, @ids ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
+    
     my $q = $self->lookup_query( $class );
     my @objects = map { $q->lookup( $_ ) } @ids;
     
@@ -107,23 +117,27 @@ method lookup ( ClassName $class, @ids ) {
     }
 }
 
-
-method lookup_query ( ClassName $class ) {
+sub lookup_query {
+    my ( $self, $class ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
     Storm::Query::Lookup->new( $self, $class );
 }
 
 
-method new_scope ( ) {
+sub new_scope {
+    my ( $self ) = @_;
     $self->live_objects->new_scope;
 }
 
 
-method new_transaction ( CodeRef $code ) {
+sub new_transaction {
+    my ( $self, $code ) = @_;
     Storm::Transaction->new( $self, $code );
 }
 
 
-method refresh ( @objects ) {
+sub refresh  {
+    my ( $self, @objects ) = @_;
     my %queries;
     
     for my $o ( @objects ) {
@@ -137,25 +151,32 @@ method refresh ( @objects ) {
 
 
 
-method refresh_query ( ClassName $class ) {
+sub refresh_query {
+    my ( $self, $class ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
     Storm::Query::Refresh->new( $self, $class );
 }
 
 
 
-method select ( ClassName $class, @options ) {
+sub select {
+    my ( $self, $class, @options ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
     $self->select_query( $class );
 }
 
 
 
-method select_query ( ClassName $class ) {
+sub select_query {
+    my ( $self, $class ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
     Storm::Query::Select->new( $self, $class );
 }
 
 
 
-method update ( @objects ) {
+sub update {
+    my ( $self, @objects ) = @_;
     my %queries;
     
     for my $o ( @objects ) {
@@ -167,7 +188,9 @@ method update ( @objects ) {
     return 1;
 }
 
-method update_query ( ClassName $class ) {
+sub update_query {
+    my ( $self, $class ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
     Storm::Query::Update->new( $self, $class );
 }
 
@@ -193,9 +216,9 @@ If you're new to L<Storm> check out L<Storm::Tutorial>.
 
     package Foo;
 
-    use Storm::Builder;
+    use Storm::Object;
 
-    __PACKAGE__->meta->table('Foo');
+    storm_table('Foo');
 
     has 'id' => ( is => 'rw', traits => [qw( PrimaryKey AutoIncrement )] );
 
@@ -385,12 +408,16 @@ L<Storm> has only been tested using MySQL and SQLite.
 
 Please report bugs by going to http://blue-aeolus.com/storm/
 
-=head1 AUTHOR
+=head1 AUTHORS
 
 Jeffrey Ray Hallock E<lt>jeffrey.hallock at gmail dot comE<gt>
 
+Dave Rolsky <autarch@urth.org>
+
+Yuval Kogman <nothingmuch@woobling.org>
+
 Special thanks to Yuval Kogman and Dave Rolsky, for who without their talented
-work and inspiration this library would not be possible.
+work and this library would not be possible.
 
 The code for managing the live object set and the scope relies on modified
 code written by Yuval Kogman for L<KiokuDB>. Documentation for this feature was
@@ -401,9 +428,14 @@ modified code written by Dave Rolsky for L<Fey> and L<Fey::ORM>.
 
 =head1 COPYRIGHT
 
-    Copyright (c) 2010 Jeffrey Ray Hallock. All rights reserved.
-    This program is free software; you can redistribute it and/or
-    modify it under the same terms as Perl itself.
+    Copyright (c) 2010-2011 Jeffrey Ray Hallock.
+
+    Copyright (c) 2010-2011 Dave Rolsky.
+
+    Copyright (c) 2008, 2009 Yuval Kogman, Infinity Interactive.
+
+    All rights reserved. This program is free software; you can redistribute it
+    and/or modify it under the same terms as Perl itself.
 
 =cut
 

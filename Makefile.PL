@@ -10,6 +10,7 @@ VERSION_FROM => 'lib/Storm.pm',
 PREREQ_PM => {
 	'DBD::SQLite' => 0,
 	'DBI' => 0,
+	'DateTime' => DateTime::Format::SQLite,
 	'Moose' => 0,
 	'MooseX::Method::Signatures' => 0,
 	'MooseX::SemiAffordanceAccessor' => 0,

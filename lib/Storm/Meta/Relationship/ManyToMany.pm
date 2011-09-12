@@ -1,7 +1,6 @@
 package Storm::Meta::Relationship::ManyToMany;
 use Moose;
 use MooseX::StrictConstructor;
-use MooseX::Method::Signatures;
 
 use MooseX::Types::Moose qw( Str Undef);
 
@@ -11,22 +10,47 @@ has 'junction_table' => (
     is => 'rw',
     isa => Str,
     writer => '_set_junction_table',
-    required => 1
+    lazy_build => 1,
 );
 
 has 'local_match' => (
     is => 'rw' ,
-    isa => Str|Undef,
+    isa => Str,
     writer => '_set_local_match',
+    lazy_build => 1,
 );
 
 has 'foreign_match' => (
     is => 'rw' ,
-    isa => Str|Undef,
+    isa => Str,
     writer => '_set_foreign_match',
+    lazy_build => 1,
 );
 
-method _add_method ( $instance, @objects ) {
+sub _build_junction_table {
+    my ( $self ) = @_;
+    my $local = $self->associated_class->meta->storm_table->name;
+    my $foreign = $self->foreign_class->meta->storm_table->name;
+    return join '_', sort $local, $foreign;
+}
+
+sub _build_local_match {
+    my ( $self ) = @_;
+    my $table = $self->associated_class->meta->storm_table->name;
+    my $column = $self->associated_class->meta->primary_key->column->name;
+    return $table . '_' . $column;
+}
+
+sub _build_foreign_match {
+    my ( $self ) = @_;
+    my $table = $self->foreign_class->meta->storm_table->name;
+    my $column = $self->foreign_class->meta->primary_key->column->name;
+    return $table . '_' . $column;
+}
+
+sub _add_method  {
+    my ( $self, $instance, @objects ) = @_;
+    
     my $orm = $instance->orm;
     confess "$instance must exist in the database" if ! $orm;
     
@@ -45,7 +69,9 @@ method _add_method ( $instance, @objects ) {
     return 1;
 }
 
-method _remove_method ( $instance, @objects ) {
+sub _remove_method  {
+    my ( $self, $instance, @objects ) = @_;
+    
     my $orm = $instance->orm;
     confess "$instance must exist in the database" if ! $orm;
     
@@ -62,12 +88,14 @@ method _remove_method ( $instance, @objects ) {
     return 1;
 }
 
-method _iter_method ( $instance ) {
+sub _iter_method   {
+    my ( $self, $instance ) = @_;
+    
     my $orm = $instance->orm;
     confess "$instance must exist in the database" if ! $orm;
     
     my $link_table     = $self->junction_table;
-    my $foreign_table  = $self->foreign_class->meta->table->name;
+    my $foreign_table  = $self->foreign_class->meta->storm_table->name;
 
     my $primary_key = $self->local_match ? $self->local_match  : $self->associated_class->meta->primary_key->column->name;
     my $foreign_key = $self->foreign_match? $self->foreign_match : $self->foreign_class->meta->primary_key->column->name;
@@ -81,7 +109,8 @@ method _iter_method ( $instance ) {
 }
 
 
-method _build_handle_methods ( ) {
+sub _build_handle_methods  {
+    my ( $self ) = @_;
     my %methods;
     
     for my $method_name ($self->_handles) {

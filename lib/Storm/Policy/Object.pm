@@ -3,10 +3,9 @@ package Storm::Policy::Object;
 use Moose;
 use MooseX::StrictConstructor;
 use MooseX::SemiAffordanceAccessor;
-use MooseX::Method::Signatures;
 
 use MooseX::Types::Moose qw( :all );
-
+use Storm::Types qw( StormArrayRef );
 
 has '_definitions' => (
     is => 'ro',
@@ -40,10 +39,49 @@ sub BUILD {
     $self->add_definition( Any , 'CHAR(64)' );
     $self->add_definition( Num , 'DECIMAL(32,16)' );
     $self->add_definition( Int , 'INTEGER' );
+    $self->add_definition( Object, 'CHAR(255)' );
+    
+    $self->add_definition( StormArrayRef, 'TEXT' );
+    $self->add_transformation( StormArrayRef, {
+        inflate => sub {
+            my ( $orm ) = @_;
+            
+            my $string = $_;
+            $string =~ s/\[|\]//g;
+            
+            my @objects;
+            for my $moniker ( split /,/, $string ) {
+                return undef if ! $moniker;
+                
+                my ( $class, $key ) = split /=/, $moniker;
+                
+                my $object = $orm->lookup( $class, $key );
+                
+                push @objects, $object;
+            }
+            
+            return \@objects;
+        },
+        deflate => sub {
+            my ( $orm ) = @_;
+            
+            my @values;
+            for my $object ( @$_ ) {
+                return undef if ! $object;
+                
+                my ( $class ) = split /=/, ref $object;
+                
+                push @values, join '=', $class, $object->meta->primary_key->get_value( $object );
+            }
+            
+            return '[' . join ( ',', @values ) . ']';
+        }
+    });
 }
 
 
-method inflate_value ( $orm, $attr, $value, @args ) {
+sub inflate_value {
+    my ( $self, $orm, $attr, $value, @args ) = @_;
     
     # do nothing if there is not a type constraint
     return $value if ! $attr->has_type_constraint;
@@ -70,7 +108,7 @@ method inflate_value ( $orm, $attr, $value, @args ) {
             my $function = $attr->transform->{inflate};
             {
                 local $_ = $value;
-                return &$function(@args);
+                return &$function($orm, @args);
             }
         }
         
@@ -97,7 +135,7 @@ method inflate_value ( $orm, $attr, $value, @args ) {
             my $function = $self->get_transformation($type_constraint->name)->{inflate};
             {
                 local $_ = $value;
-                return &$function(@args);
+                return &$function($orm, @args);
             }
         }
         
@@ -111,7 +149,8 @@ method inflate_value ( $orm, $attr, $value, @args ) {
     }
 }
 
-method deflate_value ( $attr, $value, @args ) {
+sub deflate_value  {
+    my ( $self, $attr, $value, @args ) = @_;
     
     # do nothing if there is not type constraint
     return $value if ! $attr->has_type_constraint;

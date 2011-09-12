@@ -29,15 +29,15 @@ the arguments passed to the L<Storm> constructor.
 L<Storm> is for storing Moose based objects. It is required that the objects
 have the L<Storm> roles and meta-roles applied.
 
-L<Storm::Builder> is an extension of L<Moose> which applies the appropriate roles
+L<Storm::Object> is an extension of L<Moose> which applies the appropriate roles
 and meta-roles, as well as providing some sugar for defining relationships.
 
 =head2 Simple example
 
 
  package Person;
- use Storm::Builder;
- __PACKAGE__->meta->table( 'Person' );
+ use Storm::Object;
+ storm_table( 'Person' );
 
  has 'id' => (
      is => 'rw',
@@ -82,8 +82,8 @@ setting the column option.
 =head2 Circular references
 
  package Person;
- use Storm::Builder;
- __PACKAGE__->meta->table( 'People' );
+ use Storm::Object;
+ storm_table( 'People' );
 
  has 'id' => (
      is => 'rw',
@@ -125,25 +125,25 @@ keyword.
 =head2 One-to-many
 
  package Person;
- use Storm::Builder;
- __PACKAGE__->meta->table( 'People' );
+ use Storm::Object;
+ storm_table( 'People' );
 
  has 'id' => (
      is => 'rw',
      traits => [qw(PrimaryKey AutoIncrement)],
  );
 
- has_many 'pokemon' => (
+ one_to_many 'pokemon' => (
     foreign_class => 'Pokemon',
-    foreign_key => 'master',
+    match_on => 'master',
     handles => {
         pokemon => 'iter',
     }
  );
 
  package Pokemon;
- use Storm::Builder;
- __PACKAGE__->meta->table( 'Pokemon' ); 
+ use Storm::Object;
+ storm_->table( 'Pokemon' ); 
 
  has 'id' => (
      is => 'rw',
@@ -157,7 +157,7 @@ keyword.
  );
 
 Here, we define the components of a relationship between the Person class and
-the Pokemon class uing the C<has_many> keyword.
+the Pokemon class uing the C<one_to_many> keyword.
 
 =over 4
 
@@ -183,16 +183,15 @@ attribute to a C<$person>.
 =head2 Many-to-many
 
  package Person;
- use Storm::Builder;
- __PACKAGE__->meta->table( 'People' );
+ use Storm::Object;
+ storm_table( 'People' );
 
  has 'id' => (
      is => 'rw',
      traits => [qw(PrimaryKey AutoIncrement)],
  );
 
- has_many 'pets' => (
-     is => 'rw',
+ many_to_many 'pets' => (
      foreign_class => 'Pets',
      junction_table => 'PeoplesPets',
      local_match => 'person',
@@ -205,16 +204,15 @@ attribute to a C<$person>.
  )
 
  package Pet;
- use Storm::Builder;
- __PACKAGE__->meta->table( 'Pets' );
+ use Storm::Object;
+ storm_table( 'Pets' );
 
  has 'id' => (
      is => 'rw',
      traits => [qw(PrimaryKey AutoIncrement)],
  );
 
- has_many 'care_takers' => (
-     is => 'rw',
+ many_to_many 'care_takers' => (
      foreign_class => 'Pets',
      junction_table => 'PeoplesPets',
      local_match => 'person',
@@ -231,7 +229,7 @@ attribute to a C<$person>.
 =item
 
 In a I<many-to-many> relationship, a I<junction_table> is required to form the
-relationship. This is specified as an option to the C<has_many> keyword.
+relationship. This is specified as an option to the C<many_to_many> keyword.
 
 =item
 
@@ -249,6 +247,49 @@ pets/caretakers. C<< $pet-E<gt>add_care_taker( $person ) >> is synanamous with
 C<< $person-E<gt>add_pet( $pet ) >> and C<< $pet-E<gt>remove_care_taker( $person ) >>
 is synanamous with C<< $person-E<gt>remove_pet( $pet ) >>.
 
+=back
+
+=item
+
+As of version 0.05, L<Storm> will automatically fill in the C<junction_table>,
+C<local_match>, and forerign match if you do not supply them.
+
+ package Person;
+ use Storm::Object;
+ storm_table( 'People' );
+
+ has 'id' => (
+     is => 'rw',
+     traits => [qw(PrimaryKey AutoIncrement)],
+ );
+
+ many_to_many 'pets' => (
+     foreign_class => 'Pets',
+     handles => {
+         parents => 'iter',
+         add_pet => 'add',
+         remove_pet => 'remove',
+     }
+ )
+
+ package Pet;
+ use Storm::Object;
+ storm_table( 'Pets' );
+
+ has 'id' => (
+     is => 'rw',
+     traits => [qw(PrimaryKey AutoIncrement)],
+ );
+
+ many_to_many 'care_takers' => (
+     foreign_class => 'Pets',
+     handles => {
+         care_takers => 'iter',
+         add_care_taker => 'add',
+         remove_care_taker => 'remove',
+     }
+ )
+ 
 =back
 
 =head1 CRUD
@@ -277,7 +318,7 @@ object have been retrieved and inflated.
 
 =head2 Update
 
- $storm->update( $class, @objects );
+ $storm->update( @objects );
  
 Updates the state of the @objects in the database. If you try to call C<update>
 on an object that is not already in the database, an error will be thrown. Only
@@ -287,7 +328,7 @@ yourself.
 
 =head2 Delete
 
- $storm->delete( $class, @objects );
+ $storm->delete( @objects );
  
 Deletes the @objects from the database. The local references to them will still
 exists until you destroy them or they go out of scope.
@@ -340,6 +381,14 @@ it's attributes in the comparison as well.
 
 =back
 
+=head2 Placeholders
+
+ $query->where( '.age', '>', '?' );
+ $iter = $query->results( 10 );
+    
+You can use a C<?> as placeholder. Supply the arguments to replace the
+placeholders when calling the C<results> method.
+
 =head2 Order-by
 
  $query->order_by( '.lastname', '.age DESC' );
@@ -355,7 +404,7 @@ increasing their reference count.
 Let's define out person class to use as an example.
 
  package Person;
- use Storm::Builder;
+ use Storm::Object;
 
  has 'id' => (
      is => 'rw',
@@ -499,12 +548,6 @@ inflated/deflated.
 
  $storm->new( source => ..., policy => 'My::Policy' );
 
-=head2 Credit
-
-The policy was inspired by the L<Fey::ORM> module. Some of the code this
-functionality was taken directly from theL<Fey::ORM> source (and possibly
-modified.)
-
 =over 4
 
 =item C<define>
@@ -528,6 +571,12 @@ return the deflated value.
 
 =back
 
+=head2 Credit
+
+The policy was inspired by the L<Fey::ORM> module. Some of the code this
+functionality was taken directly from theL<Fey::ORM> source (and possibly
+modified.)
+
 =head1 AEOLUS
 
 Aeolus is the greek god of the wind.  Aeolus helps manage your database
@@ -538,18 +587,26 @@ classes need to store their data.
 
 See L<Storm::Aeolus> for more information.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
 Jeffrey Ray Hallock E<lt>jeffrey.hallock at gmail dot comE<gt>
 
+Dave Rolsky <autarch@urth.org>
+
+Yuval Kogman <nothingmuch@woobling.org>
+
 =head1 COPYRIGHT
 
-    Copyright (c) 2010 Jeffrey Ray Hallock. All rights reserved.
-    This program is free software; you can redistribute it and/or
-    modify it under the same terms as Perl itself.
+    Copyright (c) 2010-2011 Jeffrey Ray Hallock.
+
+    Copyright (c) 2010-2011 Dave Rolsky.
+
+    Copyright (c) 2008, 2009 Yuval Kogman, Infinity Interactive.
+
+    All rights reserved. This program is free software; you can redistribute it
+    and/or modify it under the same terms as Perl itself.
 
 =cut
-
 
 
 

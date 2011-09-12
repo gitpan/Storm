@@ -3,13 +3,13 @@ use Test::More tests => 1;
     
 # build the testing classes
 package Artist;
-use Storm::Builder;
-__PACKAGE__->meta->table( 'Artists' );
+use Storm::Object;
+storm_table( 'Artists' );
 
 has 'identifier' => ( is => 'rw', traits => [qw( PrimaryKey AutoIncrement )] );
 has 'name' => ( is => 'rw' );
 
-has_many 'albums' => (
+many_to_many 'albums' => (
     foreign_class => 'Album',
     junction_table => 'AlbumArtists',
     local_match => 'artist',
@@ -24,13 +24,13 @@ has_many 'albums' => (
 
 
 package Album;
-use Storm::Builder;
-__PACKAGE__->meta->table( 'Albums' );
+use Storm::Object;
+storm_table( 'Albums' );
 
 has 'identifier' => ( is => 'rw', traits => [qw( PrimaryKey AutoIncrement )] );
 has 'name' => ( is => 'rw' );
 
-has_many 'artists' => (
+many_to_many 'artists' => (
     foreign_class => 'Artist',
     junction_table => 'AlbumArtists',
     local_match => 'album',

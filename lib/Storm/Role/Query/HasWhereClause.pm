@@ -1,8 +1,8 @@
 package Storm::Role::Query::HasWhereClause;
 use Moose::Role;
-use MooseX::Method::Signatures;
 use MooseX::Types::Moose qw( ArrayRef HashRef );
 
+use Storm::SQL::Column;
 use Storm::SQL::Literal;
 use Storm::SQL::Placeholder;
 use Storm::SQL::Fragment::Where::Boolean;
@@ -79,21 +79,37 @@ sub where {
     return $self;
 }
 
-method and ( @args ) {
-    $self->where( @args );
+sub and {
+    my ( $self, @args ) = @_;
+    $self->where( @args ) if @args;
 }
 
-method or ( @args ) {
+sub or {
+    my ( $self, @args ) = @_;
     $self->where( 'or' );
-    $self->where( @_ );
+    $self->where( @args ) if @args;
 }
 
-method _link ( $attr, $class ) {
+sub group_start {
+    my ( $self ) = @_;
+    $self->where( '(' );
+}
+
+sub group_end {
+    my ( $self ) = @_;
+    $self->where( ')' );
+}
+
+
+sub _link {
+        my ( $self, $attr, $class ) = @_;
     my $right_col = $class->meta->primary_key->column;
     
     if ( ! $self->_has_link( $attr->name ) ) {
         # create the comparison
-        my $element = Storm::SQL::Fragment::Where::Comparison->new($attr->column, '=', $right_col);
+        my $column1 = Storm::SQL::Column->new( $self->class->meta->storm_table->name . '.' . $attr->column->name );
+        my $column2 = Storm::SQL::Column->new( $class->meta->storm_table->name . '.' . $class->meta->primary_key->column->name );
+        my $element = Storm::SQL::Fragment::Where::Comparison->new($column1, '=', $column2);
         $self->_add_and_if_needed;
         $self->_add_where_element($element);
         $self->_set_linked( $attr->name, 1 );
@@ -101,7 +117,8 @@ method _link ( $attr, $class ) {
 }
 
 
-method _where_clause ( $skip_where? ) {
+sub _where_clause {
+    my ( $self, $skip_where ) = @_;
     return if $self->_has_no_where_elements;
     
     my $sql  = '';
@@ -111,7 +128,8 @@ method _where_clause ( $skip_where? ) {
     return $sql;
 }
 
-method _add_and_if_needed ( ) {    
+sub _add_and_if_needed {
+    my ( $self ) = @_;
     # no and needed for the first where clause
     return if ! $self->_get_where_element( -1 );
     
