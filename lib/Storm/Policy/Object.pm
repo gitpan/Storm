@@ -1,4 +1,7 @@
 package Storm::Policy::Object;
+{
+  $Storm::Policy::Object::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;
@@ -36,10 +39,11 @@ has '_transformations' => (
 
 sub BUILD {
     my ( $self ) = @_;
-    $self->add_definition( Any , 'CHAR(64)' );
+    $self->add_definition( Any , 'VARCHAR(64)' );
     $self->add_definition( Num , 'DECIMAL(32,16)' );
     $self->add_definition( Int , 'INTEGER' );
-    $self->add_definition( Object, 'CHAR(255)' );
+    $self->add_definition( Bool, 'INTEGER' );
+    $self->add_definition( Object, 'VARCHAR(255)' );
     
     $self->add_definition( StormArrayRef, 'TEXT' );
     $self->add_transformation( StormArrayRef, {
@@ -122,10 +126,11 @@ sub inflate_value {
             my $key = $value;
             $value = $orm->lookup($class, $value);
             
-            confess "could not inflate value for attribute " . $attr->name .
-                    " because we could not locate a $class object in the database" .
-                    " with the identifier $key"
-                    if ! defined $value;
+            use Carp qw( cluck );
+            cluck "could not inflate value for attribute " . $attr->name .
+                " because we could not locate a $class object in the database" .
+                " with the identifier $key"
+                if ! defined $value;
             
             return $value;
         }

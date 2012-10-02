@@ -1,4 +1,7 @@
 package Storm::Role::Model;
+{
+  $Storm::Role::Model::VERSION = '0.18';
+}
 
 use Moose::Role;
 use MooseX::Types::Moose qw( HashRef );

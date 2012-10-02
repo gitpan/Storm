@@ -1,4 +1,7 @@
 package Storm::SQL::Column;
+{
+  $Storm::SQL::Column::VERSION = '0.18';
+}
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;

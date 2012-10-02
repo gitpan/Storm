@@ -1,4 +1,7 @@
 package Storm::Query::Refresh;
+{
+  $Storm::Query::Refresh::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;

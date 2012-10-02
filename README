@@ -1,33 +1,14 @@
-Storm version 0.10
-===========================
 
-See the individual module documentation for more information
 
-INSTALLATION
+This archive contains the distribution Storm,
+version 0.18:
 
-To install this module type the following:
+  Object-relational mapping
 
-   perl Makefile.PL
-   make
-   make test
-   make install
+This software is Copyright (c) 2012 by Jeffrey Ray Hallock.
 
-DEPENDENCIES
+This is free software, licensed under:
 
-This module requires these other modules and libraries:
+  The Artistic License 2.0 (GPL Compatible)
 
-    DBI
-    DBD::SQLite
-    Moose
-    MooseX::SemiAffordanceAccessor
-    MooseX::StrictConstrctor
-    MooseX::Types
-    
-
-COPYRIGHT AND LICENCE
-
-Copyright (C) 011 Jeffrey Ray Hallock.
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 

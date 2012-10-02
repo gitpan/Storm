@@ -1,4 +1,7 @@
 package Storm::Role::Query;
+{
+  $Storm::Role::Query::VERSION = '0.18';
+}
 use Moose::Role;
 
 use Storm::Types qw( Storm );

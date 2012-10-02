@@ -1,4 +1,7 @@
 package Storm::SQL::Function;
+{
+  $Storm::SQL::Function::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;

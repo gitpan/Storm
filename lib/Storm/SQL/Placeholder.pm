@@ -1,4 +1,7 @@
 package Storm::SQL::Placeholder;
+{
+  $Storm::SQL::Placeholder::VERSION = '0.18';
+}
 use Moose;
 use MooseX::SemiAffordanceAccessor;
 use MooseX::StrictConstructor;

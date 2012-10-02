@@ -1,4 +1,7 @@
 package Storm::Meta::Class::Trait::AutoTable;
+{
+  $Storm::Meta::Class::Trait::AutoTable::VERSION = '0.18';
+}
 use Moose::Role;
 
 around '_build_storm_table' => sub {
@@ -8,5 +11,8 @@ around '_build_storm_table' => sub {
 };
 
 package Moose::Meta::Class::Custom::Trait::AutoTable;
+{
+  $Moose::Meta::Class::Custom::Trait::AutoTable::VERSION = '0.18';
+}
 sub register_implementation { 'Storm::Meta::Class::Trait::AutoTable' };
 1;

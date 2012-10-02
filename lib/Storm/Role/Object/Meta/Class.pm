@@ -1,4 +1,7 @@
 package Storm::Role::Object::Meta::Class;
+{
+  $Storm::Role::Object::Meta::Class::VERSION = '0.18';
+}
 
 use Moose::Role;
 use Storm::Meta::Relationship::ManyToMany;

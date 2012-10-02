@@ -1,4 +1,7 @@
 package Storm::SQL::Fragment::Where::Comparison;
+{
+  $Storm::SQL::Fragment::Where::Comparison::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;

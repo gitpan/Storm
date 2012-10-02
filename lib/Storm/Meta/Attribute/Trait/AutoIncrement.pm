@@ -1,4 +1,7 @@
 package Storm::Meta::Attribute::Trait::AutoIncrement;
+{
+  $Storm::Meta::Attribute::Trait::AutoIncrement::VERSION = '0.18';
+}
 use Moose::Role;
 
 use MooseX::Types::Moose qw( Int );
@@ -15,5 +18,8 @@ before '_process_options' => sub {
 
 
 package Moose::Meta::Attribute::Custom::Trait::AutoIncrement;
+{
+  $Moose::Meta::Attribute::Custom::Trait::AutoIncrement::VERSION = '0.18';
+}
 sub register_implementation { 'Storm::Meta::Attribute::Trait::AutoIncrement' };
 1;

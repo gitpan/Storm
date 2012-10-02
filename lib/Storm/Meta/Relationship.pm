@@ -1,4 +1,7 @@
 package Storm::Meta::Relationship;
+{
+  $Storm::Meta::Relationship::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;

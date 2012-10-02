@@ -1,4 +1,7 @@
 package Storm::Source;
+{
+  $Storm::Source::VERSION = '0.18';
+}
 
 
 use Moose;

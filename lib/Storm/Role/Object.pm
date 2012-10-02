@@ -1,4 +1,7 @@
 package Storm::Role::Object;
+{
+  $Storm::Role::Object::VERSION = '0.18';
+}
 
 use Moose::Role;
 use Storm::Meta::Table;

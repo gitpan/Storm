@@ -1,4 +1,7 @@
 package Storm::Role::Query::IsExecutable;
+{
+  $Storm::Role::Query::IsExecutable::VERSION = '0.18';
+}
 use Moose::Role;
 
 has '_sth' => (

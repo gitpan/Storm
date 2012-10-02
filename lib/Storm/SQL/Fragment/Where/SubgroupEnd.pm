@@ -1,4 +1,7 @@
 package Storm::SQL::Fragment::Where::SubgroupEnd;
+{
+  $Storm::SQL::Fragment::Where::SubgroupEnd::VERSION = '0.18';
+}
 use Moose;
 
 

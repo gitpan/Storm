@@ -1,4 +1,7 @@
 package Storm::Meta::Column;
+{
+  $Storm::Meta::Column::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

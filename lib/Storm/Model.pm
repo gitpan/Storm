@@ -1,4 +1,7 @@
 package Storm::Model;
+{
+  $Storm::Model::VERSION = '0.18';
+}
 
 use Moose;
 use Moose::Exporter;

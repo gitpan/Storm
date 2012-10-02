@@ -1,4 +1,7 @@
 package Storm::Role::Query::HasAttributeMap;
+{
+  $Storm::Role::Query::HasAttributeMap::VERSION = '0.18';
+}
 
 use Moose::Role;
 with 'Storm::Role::Query::HasAttributeOrder';

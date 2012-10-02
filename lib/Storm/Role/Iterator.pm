@@ -1,4 +1,7 @@
 package Storm::Role::Iterator;
+{
+  $Storm::Role::Iterator::VERSION = '0.18';
+}
 
 use Moose::Role;
 requires qw( _get_next_result reset);

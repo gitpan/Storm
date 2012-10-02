@@ -1,7 +1,7 @@
 package Storm;
-
-our $VERSION = '0.10';
-our $AUTHORITY = 'cpan:JHALLOCK';
+{
+  $Storm::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;
@@ -10,6 +10,7 @@ use MooseX::SemiAffordanceAccessor;
 use Storm::Aeolus;
 use Storm::LiveObjects;
 use Storm::Query::Delete;
+use Storm::Query::DeleteWhere;
 use Storm::Query::Insert;
 use Storm::Query::Lookup;
 use Storm::Query::Refresh;
@@ -48,6 +49,11 @@ has 'source' => (
     coerce => 1,
 );
 
+# returns an active database handle
+sub dbh {
+    $_[0]->source->dbh;
+}
+
 sub delete {
     my ( $self, @objects ) = @_;
     my %queries;
@@ -61,12 +67,16 @@ sub delete {
     return 1;
 }
 
-
-
 sub delete_query {
     my ( $self, $class ) = @_;
     confess "$class is not a valid classname" if ! is_ClassName( $class );
     Storm::Query::Delete->new( $self, $class );
+}
+
+sub delete_where {
+    my ( $self, $class ) = @_;
+    confess "$class is not a valid classname" if ! is_ClassName( $class );
+    Storm::Query::DeleteWhere->new( $self, $class );
 }
 
 
@@ -262,14 +272,8 @@ If you're new to L<Storm> check out L<Storm::Tutorial>.
     
 =head1 DESCRIPTION
 
-L<Storm> is a Moose based library for storing and retrieving objects from a
+L<Storm> is a Moose based library for storing and retrieving objects over a
 L<DBI> connection.
-
-=head1 ALPHA VERSION
-
-*THIS IS NEW SOFTWARE. IT IS STILL IN DEVELOPMENT. THE API MAY CHANGE IN FUTURE
-VERSIONS WITH NO NOTICE.*
-
 
 =head1 ATTRIBUTES
 
@@ -317,6 +321,11 @@ Deletes the objects from the database.
 
 Returns a L<Storm::Query::Delete> instance for deleting objects of type $class
 from the database.
+
+=item delete_where $class
+
+Returns a L<Storm::Query::DeleteWhere> instance for deleting objects of type
+$class from the database using a where clause.
 
 =item do_transaction \&func
 
@@ -406,15 +415,15 @@ L<Storm> has only been tested using MySQL and SQLite.
 
 =head1 BUGS
 
-Please report bugs by going to http://blue-aeolus.com/storm/
+Please report bugs on CPAN.
 
 =head1 AUTHORS
 
 Jeffrey Ray Hallock E<lt>jeffrey.hallock at gmail dot comE<gt>
 
-Dave Rolsky <autarch@urth.org>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
-Yuval Kogman <nothingmuch@woobling.org>
+Yuval Kogman E<lt>nothingmuch@woobling.orgE<gt>
 
 Special thanks to Yuval Kogman and Dave Rolsky, for who without their talented
 work and this library would not be possible.
@@ -424,18 +433,19 @@ code written by Yuval Kogman for L<KiokuDB>. Documentation for this feature was
 also taken from L<KiokuDB>.
 
 The code for managing the policy and generating sql statements relies on
-modified code written by Dave Rolsky for L<Fey> and L<Fey::ORM>.
+modified code written by Dave Rolsky for L<Fey>.
 
 =head1 COPYRIGHT
 
-    Copyright (c) 2010-2011 Jeffrey Ray Hallock.
+    Copyright (c) 2010-2012 Jeffrey Ray Hallock.
 
     Copyright (c) 2010-2011 Dave Rolsky.
 
     Copyright (c) 2008, 2009 Yuval Kogman, Infinity Interactive.
 
-    All rights reserved. This program is free software; you can redistribute it
-    and/or modify it under the same terms as Perl itself.
+    This is free software, licensed under:
+
+    The Artistic License 2.0 (GPL Compatible)
 
 =cut
 

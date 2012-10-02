@@ -1,4 +1,7 @@
 package Storm::Query::Delete;
+{
+  $Storm::Query::Delete::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;

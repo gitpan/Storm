@@ -1,4 +1,7 @@
 package Storm::Query::Insert;
+{
+  $Storm::Query::Insert::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

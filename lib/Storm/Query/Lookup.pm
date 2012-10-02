@@ -1,4 +1,7 @@
 package Storm::Query::Lookup;
+{
+  $Storm::Query::Lookup::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;

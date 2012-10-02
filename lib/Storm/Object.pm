@@ -1,4 +1,7 @@
 package Storm::Object;
+{
+  $Storm::Object::VERSION = '0.18';
+}
 
 use Moose;
 use Moose::Exporter;
@@ -6,6 +9,7 @@ use Moose::Util::MetaRole;
 
 use Storm::Meta::Attribute::Trait::AutoIncrement;
 use Storm::Meta::Attribute::Trait::NoStorm;
+use Storm::Meta::Attribute::Trait::ForeignKey;
 use Storm::Meta::Attribute::Trait::PrimaryKey;
 use Storm::Meta::Attribute::Trait::StormArray;
 
@@ -14,29 +18,45 @@ use Storm::Meta::Class::Trait::AutoTable;
 use Storm::Meta::Column;
 use Storm::Meta::Table;
 
+use Storm::Role::Object;
+use Storm::Role::Object::Meta::Class;
+use Storm::Role::Object::Meta::Attribute;
+
+
 
 Moose::Exporter->setup_import_methods(
     also => 'Moose',
     with_caller => [qw( storm_table has_many one_to_many many_to_many )],
+    class_metaroles => {
+        class => [ 'Storm::Role::Object::Meta::Class' ],
+        attribute => [ 'Storm::Role::Object::Meta::Attribute' ],
+    },
+    role_metaroles => {
+        applied_attribute => [ 'Storm::Role::Object::Meta::Attribute' ],
+    },
+    base_class_roles => [ 'Storm::Role::Object' ],
 );
 
-sub init_meta {
-    my ( $class, %options ) = @_;
-    Moose->init_meta( %options );
-    
-    Moose::Util::MetaRole::apply_metaroles(
-        for       => $options{for_class},
-        class_metaroles => {
-            class => [ 'Storm::Role::Object::Meta::Class' ],
-            attribute => [ 'Storm::Role::Object::Meta::Attribute' ],
-        },
-    );
-    
-    Moose::Util::MetaRole::apply_base_class_roles(
-        for       => $options{for_class},
-        roles           => [ 'Storm::Role::Object'  ],
-    );
-}
+#sub init_meta {
+#    my ( $class, %options ) = @_;
+#    Moose->init_meta( %options );
+#    
+#    Moose::Util::MetaRole::apply_metaroles(
+#        for       => $options{for_class},
+#        class_metaroles => {
+#            class => [ 'Storm::Role::Object::Meta::Class' ],
+#            attribute => [ 'Storm::Role::Object::Meta::Attribute' ],
+#        },
+#        role_metaroles => {
+#            applied_attribute => [ 'Storm::Role::Object::Meta::Attribute' ],
+#        }
+#    );
+#    
+#    Moose::Util::MetaRole::apply_base_class_roles(
+#        for       => $options{for_class},
+#        roles           => [ 'Storm::Role::Object'  ],
+#    );
+#}
 
 sub storm_table {
    my $caller = shift;

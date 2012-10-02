@@ -1,4 +1,7 @@
 package Storm::Role::Object::Meta::Attribute;
+{
+  $Storm::Role::Object::Meta::Attribute::VERSION = '0.18';
+}
 
 use Moose::Role;
 use Storm::Meta::Column;

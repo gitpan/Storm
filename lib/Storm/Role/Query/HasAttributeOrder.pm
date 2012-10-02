@@ -1,4 +1,7 @@
 package Storm::Role::Query::HasAttributeOrder;
+{
+  $Storm::Role::Query::HasAttributeOrder::VERSION = '0.18';
+}
 
 use Moose::Role;
 use MooseX::Types::Moose qw( ArrayRef );

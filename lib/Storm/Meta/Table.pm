@@ -1,4 +1,7 @@
 package Storm::Meta::Table;
+{
+  $Storm::Meta::Table::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

@@ -1,4 +1,7 @@
 package Storm::Query::Update;
+{
+  $Storm::Query::Update::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::SemiAffordanceAccessor;

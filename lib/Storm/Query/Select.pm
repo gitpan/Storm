@@ -1,4 +1,7 @@
 package Storm::Query::Select;
+{
+  $Storm::Query::Select::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;
@@ -9,10 +12,11 @@ use Storm::Query::Select::Iterator;
 use MooseX::Types::Moose qw( HashRef Str );
 
 with 'Storm::Role::Query';
-with 'Storm::Role::Query::HasBindParams';
-with 'Storm::Role::Query::HasWhereClause';
-with 'Storm::Role::Query::HasOrderByClause';
 with 'Storm::Role::Query::HasAttributeOrder';
+with 'Storm::Role::Query::HasBindParams';
+with 'Storm::Role::Query::HasLimitClause';
+with 'Storm::Role::Query::HasOrderByClause';
+with 'Storm::Role::Query::HasWhereClause';
 
 has '_join' => (
     is => 'rw',
@@ -50,6 +54,7 @@ sub _sql {
         $self->_from_clause    ,
         $self->_where_clause   ,
         $self->_order_by_clause,
+        $self->_limit_clause,
 }
 
 sub join {
@@ -86,6 +91,8 @@ sub _join_clause {
     return if ! defined $self->_join;
     return 'INNER JOIN ' . $self->_join;
 }
+
+
 
 sub bind_params {
     my ( $self ) = @_;

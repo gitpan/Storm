@@ -1,4 +1,7 @@
 package Storm::SQL::Fragment::OrderBy;
+{
+  $Storm::SQL::Fragment::OrderBy::VERSION = '0.18';
+}
 use Moose;
 
 has '_column' => (

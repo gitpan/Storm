@@ -1,4 +1,7 @@
 package Storm::SQL::Fragment::Where::Boolean;
+{
+  $Storm::SQL::Fragment::Where::Boolean::VERSION = '0.18';
+}
 
 use Moose;
 use MooseX::StrictConstructor;

@@ -1,4 +1,7 @@
 package Storm::Transaction;
+{
+  $Storm::Transaction::VERSION = '0.18';
+}
 use Moose;
 use MooseX::StrictConstructor;
 

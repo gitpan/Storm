@@ -1,4 +1,7 @@
 package Storm::Query::Select::Iterator;
+{
+  $Storm::Query::Select::Iterator::VERSION = '0.18';
+}
 
 use Devel::GlobalDestruction;
 use Moose;
@@ -98,6 +101,11 @@ sub _get_next_result {
     # potentially be slower
    
     my  $sth  = $self->_sth;
+    
+    
+    
+    # if the database has gone away, this will fail
+    
     my  @data = $sth->fetchrow_array;
     return undef if ! @data;
     
