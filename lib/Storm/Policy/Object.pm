@@ -1,6 +1,6 @@
 package Storm::Policy::Object;
 {
-  $Storm::Policy::Object::VERSION = '0.18';
+  $Storm::Policy::Object::VERSION = '0.19';
 }
 
 use Moose;

@@ -1,6 +1,6 @@
 package Storm::SQL::Function;
 {
-  $Storm::SQL::Function::VERSION = '0.18';
+  $Storm::SQL::Function::VERSION = '0.19';
 }
 
 use Moose;

@@ -1,6 +1,6 @@
 package Storm::SQL::Parameter;
 {
-  $Storm::SQL::Parameter::VERSION = '0.18';
+  $Storm::SQL::Parameter::VERSION = '0.19';
 }
 use Moose;
 1;

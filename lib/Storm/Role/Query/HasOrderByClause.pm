@@ -1,6 +1,6 @@
 package Storm::Role::Query::HasOrderByClause;
 {
-  $Storm::Role::Query::HasOrderByClause::VERSION = '0.18';
+  $Storm::Role::Query::HasOrderByClause::VERSION = '0.19';
 }
 
 use Moose::Role;

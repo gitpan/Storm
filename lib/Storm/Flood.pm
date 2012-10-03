@@ -1,6 +1,6 @@
 package Storm::Flood;
 {
-  $Storm::Flood::VERSION = '0.18';
+  $Storm::Flood::VERSION = '0.19';
 }
 
 use Moose;

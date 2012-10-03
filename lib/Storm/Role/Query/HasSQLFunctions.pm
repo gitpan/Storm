@@ -1,6 +1,6 @@
 package Storm::Role::Query::HasSQLFunctions;
 {
-  $Storm::Role::Query::HasSQLFunctions::VERSION = '0.18';
+  $Storm::Role::Query::HasSQLFunctions::VERSION = '0.19';
 }
 use Moose::Role;
 

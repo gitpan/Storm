@@ -1,6 +1,6 @@
 package Storm::Role::Object::Meta::Attribute;
 {
-  $Storm::Role::Object::Meta::Attribute::VERSION = '0.18';
+  $Storm::Role::Object::Meta::Attribute::VERSION = '0.19';
 }
 
 use Moose::Role;

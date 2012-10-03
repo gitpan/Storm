@@ -1,6 +1,6 @@
 package Storm::SQL::Fragment::OrderBy;
 {
-  $Storm::SQL::Fragment::OrderBy::VERSION = '0.18';
+  $Storm::SQL::Fragment::OrderBy::VERSION = '0.19';
 }
 use Moose;
 

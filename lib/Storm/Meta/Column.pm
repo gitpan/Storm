@@ -1,6 +1,6 @@
 package Storm::Meta::Column;
 {
-  $Storm::Meta::Column::VERSION = '0.18';
+  $Storm::Meta::Column::VERSION = '0.19';
 }
 
 use Moose;

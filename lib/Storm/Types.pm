@@ -1,6 +1,6 @@
 package Storm::Types;
 {
-  $Storm::Types::VERSION = '0.18';
+  $Storm::Types::VERSION = '0.19';
 }
 use MooseX::Types -declare => [qw(
     DBIStatementHandle

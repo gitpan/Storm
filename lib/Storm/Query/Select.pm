@@ -1,6 +1,6 @@
 package Storm::Query::Select;
 {
-  $Storm::Query::Select::VERSION = '0.18';
+  $Storm::Query::Select::VERSION = '0.19';
 }
 
 use Moose;

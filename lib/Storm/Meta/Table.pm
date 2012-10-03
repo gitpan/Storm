@@ -1,6 +1,6 @@
 package Storm::Meta::Table;
 {
-  $Storm::Meta::Table::VERSION = '0.18';
+  $Storm::Meta::Table::VERSION = '0.19';
 }
 
 use Moose;

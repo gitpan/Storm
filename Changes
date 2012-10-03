@@ -1,6 +1,9 @@
 Changes for perl module Storm
 
 
+0.19      2012-10-03 18:26:16
+- Does not try to install foreign keyes on SQLite DBD driver
+
 0.16
 - Added Storm::Role for composing roles with Storm-enabled attributes
 - Compliant with Moose 2.0+

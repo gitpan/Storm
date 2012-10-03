@@ -1,6 +1,6 @@
 package Storm::Role::Query::HasLimitClause;
 {
-  $Storm::Role::Query::HasLimitClause::VERSION = '0.18';
+  $Storm::Role::Query::HasLimitClause::VERSION = '0.19';
 }
 
 use Moose::Role;

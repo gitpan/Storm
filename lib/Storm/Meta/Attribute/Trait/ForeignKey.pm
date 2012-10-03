@@ -1,6 +1,6 @@
 package Storm::Meta::Attribute::Trait::ForeignKey;
 {
-  $Storm::Meta::Attribute::Trait::ForeignKey::VERSION = '0.18';
+  $Storm::Meta::Attribute::Trait::ForeignKey::VERSION = '0.19';
 }
 use Moose::Role;
 
@@ -21,7 +21,7 @@ has 'on_delete' => (
 
 package Moose::Meta::Attribute::Custom::Trait::ForeignKey;
 {
-  $Moose::Meta::Attribute::Custom::Trait::ForeignKey::VERSION = '0.18';
+  $Moose::Meta::Attribute::Custom::Trait::ForeignKey::VERSION = '0.19';
 }
 sub register_implementation { 'Storm::Meta::Attribute::Trait::ForeignKey' };
 1;

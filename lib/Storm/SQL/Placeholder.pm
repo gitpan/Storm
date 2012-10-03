@@ -1,6 +1,6 @@
 package Storm::SQL::Placeholder;
 {
-  $Storm::SQL::Placeholder::VERSION = '0.18';
+  $Storm::SQL::Placeholder::VERSION = '0.19';
 }
 use Moose;
 use MooseX::SemiAffordanceAccessor;

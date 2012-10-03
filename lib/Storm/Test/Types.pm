@@ -1,6 +1,6 @@
 package Storm::Test::Types;
 {
-  $Storm::Test::Types::VERSION = '0.18';
+  $Storm::Test::Types::VERSION = '0.19';
 }
 
 use MooseX::Types -declare => [qw(

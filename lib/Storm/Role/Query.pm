@@ -1,6 +1,6 @@
 package Storm::Role::Query;
 {
-  $Storm::Role::Query::VERSION = '0.18';
+  $Storm::Role::Query::VERSION = '0.19';
 }
 use Moose::Role;
 

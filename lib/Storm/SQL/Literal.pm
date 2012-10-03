@@ -1,6 +1,6 @@
 package Storm::SQL::Literal;
 {
-  $Storm::SQL::Literal::VERSION = '0.18';
+  $Storm::SQL::Literal::VERSION = '0.19';
 }
 use Moose;
 use MooseX::SemiAffordanceAccessor;
