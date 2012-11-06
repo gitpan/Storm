@@ -1,6 +1,6 @@
 package Storm::Query::Select::Iterator;
 {
-  $Storm::Query::Select::Iterator::VERSION = '0.19';
+  $Storm::Query::Select::Iterator::VERSION = '0.200';
 }
 
 use Devel::GlobalDestruction;

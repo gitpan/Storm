@@ -1,6 +1,6 @@
 package Storm::Role::CanDeflate;
 {
-  $Storm::Role::CanDeflate::VERSION = '0.19';
+  $Storm::Role::CanDeflate::VERSION = '0.200';
 }
 
 use Moose::Role;

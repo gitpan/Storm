@@ -1,6 +1,6 @@
 package Storm::Transaction;
 {
-  $Storm::Transaction::VERSION = '0.19';
+  $Storm::Transaction::VERSION = '0.200';
 }
 use Moose;
 use MooseX::StrictConstructor;

@@ -1,6 +1,6 @@
 package Storm::Query::Insert;
 {
-  $Storm::Query::Insert::VERSION = '0.19';
+  $Storm::Query::Insert::VERSION = '0.200';
 }
 
 use Moose;

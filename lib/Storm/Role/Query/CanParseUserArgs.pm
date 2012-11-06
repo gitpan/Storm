@@ -1,6 +1,6 @@
 package Storm::Role::Query::CanParseUserArgs;
 {
-  $Storm::Role::Query::CanParseUserArgs::VERSION = '0.19';
+  $Storm::Role::Query::CanParseUserArgs::VERSION = '0.200';
 }
 
 use Storm::SQL::Column;

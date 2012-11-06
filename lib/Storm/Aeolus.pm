@@ -1,6 +1,6 @@
 package Storm::Aeolus;
 {
-  $Storm::Aeolus::VERSION = '0.19';
+  $Storm::Aeolus::VERSION = '0.200';
 }
 
 use Moose;

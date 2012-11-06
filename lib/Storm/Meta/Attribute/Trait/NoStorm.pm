@@ -1,6 +1,6 @@
 package Storm::Meta::Attribute::Trait::NoStorm;
 {
-  $Storm::Meta::Attribute::Trait::NoStorm::VERSION = '0.19';
+  $Storm::Meta::Attribute::Trait::NoStorm::VERSION = '0.200';
 }
 use Moose::Role;
 
@@ -14,7 +14,7 @@ before '_process_options' => sub {
 
 package Moose::Meta::Attribute::Custom::Trait::NoStorm;
 {
-  $Moose::Meta::Attribute::Custom::Trait::NoStorm::VERSION = '0.19';
+  $Moose::Meta::Attribute::Custom::Trait::NoStorm::VERSION = '0.200';
 }
 sub register_implementation { 'Storm::Meta::Attribute::Trait::NoStorm' };
 1;

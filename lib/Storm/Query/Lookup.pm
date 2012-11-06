@@ -1,6 +1,6 @@
 package Storm::Query::Lookup;
 {
-  $Storm::Query::Lookup::VERSION = '0.19';
+  $Storm::Query::Lookup::VERSION = '0.200';
 }
 
 use Moose;

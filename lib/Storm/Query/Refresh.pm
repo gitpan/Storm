@@ -1,6 +1,6 @@
 package Storm::Query::Refresh;
 {
-  $Storm::Query::Refresh::VERSION = '0.19';
+  $Storm::Query::Refresh::VERSION = '0.200';
 }
 
 use Moose;

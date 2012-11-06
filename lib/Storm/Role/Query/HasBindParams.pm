@@ -1,6 +1,6 @@
 package Storm::Role::Query::HasBindParams;
 {
-  $Storm::Role::Query::HasBindParams::VERSION = '0.19';
+  $Storm::Role::Query::HasBindParams::VERSION = '0.200';
 }
 use Moose::Role;
 

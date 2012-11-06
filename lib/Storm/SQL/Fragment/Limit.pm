@@ -1,6 +1,6 @@
 package Storm::SQL::Fragment::Limit;
 {
-  $Storm::SQL::Fragment::Limit::VERSION = '0.19';
+  $Storm::SQL::Fragment::Limit::VERSION = '0.200';
 }
 use Moose;
 

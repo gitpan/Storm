@@ -1,6 +1,6 @@
 package Storm::Meta::Relationship::ManyToMany;
 {
-  $Storm::Meta::Relationship::ManyToMany::VERSION = '0.19';
+  $Storm::Meta::Relationship::ManyToMany::VERSION = '0.200';
 }
 use Moose;
 use MooseX::StrictConstructor;

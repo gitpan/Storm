@@ -1,6 +1,6 @@
 package Storm::Role::Query::HasWhereClause;
 {
-  $Storm::Role::Query::HasWhereClause::VERSION = '0.19';
+  $Storm::Role::Query::HasWhereClause::VERSION = '0.200';
 }
 use Moose::Role;
 use MooseX::Types::Moose qw( ArrayRef HashRef );

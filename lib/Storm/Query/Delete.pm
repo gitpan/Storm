@@ -1,6 +1,6 @@
 package Storm::Query::Delete;
 {
-  $Storm::Query::Delete::VERSION = '0.19';
+  $Storm::Query::Delete::VERSION = '0.200';
 }
 
 use Moose;
