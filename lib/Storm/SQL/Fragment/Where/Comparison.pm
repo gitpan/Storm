@@ -1,6 +1,6 @@
 package Storm::SQL::Fragment::Where::Comparison;
 {
-  $Storm::SQL::Fragment::Where::Comparison::VERSION = '0.200';
+  $Storm::SQL::Fragment::Where::Comparison::VERSION = '0.240';
 }
 
 use Moose;

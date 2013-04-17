@@ -1,6 +1,6 @@
 package Storm::Role::Query::HasAttributeOrder;
 {
-  $Storm::Role::Query::HasAttributeOrder::VERSION = '0.200';
+  $Storm::Role::Query::HasAttributeOrder::VERSION = '0.240';
 }
 
 use Moose::Role;

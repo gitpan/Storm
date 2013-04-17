@@ -1,6 +1,6 @@
 package Storm::Query::Update;
 {
-  $Storm::Query::Update::VERSION = '0.200';
+  $Storm::Query::Update::VERSION = '0.240';
 }
 
 use Moose;
@@ -40,7 +40,7 @@ sub update {
 
 sub _sql {
     my ( $self ) = @_;
-    my $table = $self->class->meta->storm_table->sql;
+    my $table = $self->orm->table( $self->class );
     my $primary_key = $self->class->meta->primary_key->column->name;
     
     # NOTE: column->name should probably be column->sql, problem is that

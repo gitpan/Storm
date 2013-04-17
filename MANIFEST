@@ -97,6 +97,7 @@ t/153_select_query_with_order_by_clause.t
 t/154_select_query_with_sql_function.t
 t/155_select_query_from_multiple_tables.t
 t/160_ignore_attribute.t
+t/161_table_prefix.t
 t/200_live_objects.t
 t/201_transaction.t
 t/210_policy_define.t

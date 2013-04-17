@@ -1,6 +1,6 @@
 package Storm::Role::Model::Meta::Class;
 {
-  $Storm::Role::Model::Meta::Class::VERSION = '0.200';
+  $Storm::Role::Model::Meta::Class::VERSION = '0.240';
 }
 
 use Moose::Role;

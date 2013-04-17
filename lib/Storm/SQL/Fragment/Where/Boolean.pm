@@ -1,6 +1,6 @@
 package Storm::SQL::Fragment::Where::Boolean;
 {
-  $Storm::SQL::Fragment::Where::Boolean::VERSION = '0.200';
+  $Storm::SQL::Fragment::Where::Boolean::VERSION = '0.240';
 }
 
 use Moose;

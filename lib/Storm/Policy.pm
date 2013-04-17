@@ -1,6 +1,6 @@
 package Storm::Policy;
 {
-  $Storm::Policy::VERSION = '0.200';
+  $Storm::Policy::VERSION = '0.240';
 }
 use strict;
 use warnings;

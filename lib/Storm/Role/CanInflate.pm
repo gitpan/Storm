@@ -1,6 +1,6 @@
 package Storm::Role::CanInflate;
 {
-  $Storm::Role::CanInflate::VERSION = '0.200';
+  $Storm::Role::CanInflate::VERSION = '0.240';
 }
 
 use Moose::Role;

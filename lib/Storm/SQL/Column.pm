@@ -1,6 +1,6 @@
 package Storm::SQL::Column;
 {
-  $Storm::SQL::Column::VERSION = '0.200';
+  $Storm::SQL::Column::VERSION = '0.240';
 }
 use Moose;
 use MooseX::SemiAffordanceAccessor;

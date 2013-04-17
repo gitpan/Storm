@@ -1,6 +1,6 @@
 package Storm::Meta::Column;
 {
-  $Storm::Meta::Column::VERSION = '0.200';
+  $Storm::Meta::Column::VERSION = '0.240';
 }
 
 use Moose;
@@ -29,7 +29,7 @@ has 'auto_increment' => (
 
 sub sql  {
     my ( $self, $table ) = @_;
-    $table ? $table->name . '.' . $self->name :  $self->name;
+    $table ? $table . '.' . $self->name :  $self->name;
 }
 
 no Moose;

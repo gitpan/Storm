@@ -1,6 +1,6 @@
 package Storm::Role::Query::HasAttributeMap;
 {
-  $Storm::Role::Query::HasAttributeMap::VERSION = '0.200';
+  $Storm::Role::Query::HasAttributeMap::VERSION = '0.240';
 }
 
 use Moose::Role;

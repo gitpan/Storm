@@ -1,6 +1,6 @@
 package Storm::LiveObjects;
 {
-  $Storm::LiveObjects::VERSION = '0.200';
+  $Storm::LiveObjects::VERSION = '0.240';
 }
 use Moose;
 use MooseX::StrictConstructor;

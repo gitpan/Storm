@@ -1,6 +1,6 @@
 package Storm::Query::Select;
 {
-  $Storm::Query::Select::VERSION = '0.200';
+  $Storm::Query::Select::VERSION = '0.240';
 }
 
 use Moose;
@@ -36,7 +36,7 @@ has '_from_tables' => (
 
 sub _from  {
     my ( $self, @tables ) = @_;
-    $self->_set_from_table( $_->name, $_ ) for @tables;
+    $self->_set_from_table( $self->orm->table( $_->name ), $_ ) for @tables;
 }
 
 
@@ -74,14 +74,14 @@ sub results  {
 
 sub _select_clause {
     my ( $self ) = @_;
-    my $table = $self->class->meta->storm_table;
+    my $table = $self->orm->table( $self->class );
     return 'SELECT ' . CORE::join (', ', map { $_->column->sql( $table ) } $self->attribute_order);
 }
 
 sub _from_clause {
     my ( $self ) = @_;
     my $sql  = 'FROM ';
-    $sql .= CORE::join(", ", map { $_->sql } $self->_from_tables);
+    $sql .= CORE::join(", ", map { $self->orm->table( $_->name ) } $self->_from_tables);
     $sql .= ' ' . $self->_join_clause if $self->_join;
     return $sql;
 }

@@ -1,6 +1,6 @@
 package Storm::Model;
 {
-  $Storm::Model::VERSION = '0.200';
+  $Storm::Model::VERSION = '0.240';
 }
 
 use Moose;

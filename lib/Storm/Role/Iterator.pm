@@ -1,6 +1,6 @@
 package Storm::Role::Iterator;
 {
-  $Storm::Role::Iterator::VERSION = '0.200';
+  $Storm::Role::Iterator::VERSION = '0.240';
 }
 
 use Moose::Role;

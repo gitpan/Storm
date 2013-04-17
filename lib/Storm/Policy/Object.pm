@@ -1,6 +1,6 @@
 package Storm::Policy::Object;
 {
-  $Storm::Policy::Object::VERSION = '0.200';
+  $Storm::Policy::Object::VERSION = '0.240';
 }
 
 use Moose;
@@ -121,6 +121,8 @@ sub inflate_value {
             $type_constraint->class &&
             $type_constraint->class->can( 'meta' ) &&
             $type_constraint->class->meta->does_role( 'Storm::Role::Object' ) ) {
+            
+            return undef if $value == 0;
             
             my $class = $type_constraint->class;
             my $key = $value;

@@ -1,6 +1,6 @@
 package Storm::Query::DeleteWhere;
 {
-  $Storm::Query::DeleteWhere::VERSION = '0.200';
+  $Storm::Query::DeleteWhere::VERSION = '0.240';
 }
 
 use Moose;
@@ -30,7 +30,7 @@ sub delete  {
 
 sub _sql {
     my ( $self ) = @_;
-    my $table = $self->class->meta->storm_table->sql;
+    my $table = $self->orm->table( $self->class );
     my $sql = qq[DELETE FROM $table ];
     $sql .= $self->_where_clause;
     return $sql;

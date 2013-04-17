@@ -1,8 +1,11 @@
 Changes for perl module Storm
 
 
-0.200     2012-11-06 11:11:59
-- MYSql autoreconnect = 1
+0.240     2013-04-17 14:30:59
+- added table prefix
+
+- 0.22
+Fixed issue with primary key/identifier
 
 0.19      2012-10-03 18:26:16
 - Does not try to install foreign keyes on SQLite DBD driver

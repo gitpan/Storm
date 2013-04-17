@@ -1,6 +1,6 @@
 package Storm::Query::Refresh;
 {
-  $Storm::Query::Refresh::VERSION = '0.200';
+  $Storm::Query::Refresh::VERSION = '0.240';
 }
 
 use Moose;
@@ -53,7 +53,7 @@ sub _select_clause  {
 
 sub _from_clause ( ) {
     my ( $self ) = @_;
-    return 'FROM ' . $self->class->meta->storm_table->sql;
+    return 'FROM ' . $self->orm->table( $self->class );
 }
 
 sub _where_clause ( ) {

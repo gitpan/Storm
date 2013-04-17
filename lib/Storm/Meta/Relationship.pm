@@ -1,6 +1,6 @@
 package Storm::Meta::Relationship;
 {
-  $Storm::Meta::Relationship::VERSION = '0.200';
+  $Storm::Meta::Relationship::VERSION = '0.240';
 }
 
 use Moose;

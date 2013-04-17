@@ -1,6 +1,6 @@
 package Storm::Role::Query::CanParseUserArgs;
 {
-  $Storm::Role::Query::CanParseUserArgs::VERSION = '0.200';
+  $Storm::Role::Query::CanParseUserArgs::VERSION = '0.240';
 }
 
 use Storm::SQL::Column;
@@ -29,7 +29,7 @@ sub args_to_sql_objects {
                 my $attname = $1;
                 if ( exists $map->{$1} ) {
                     my $column = Storm::SQL::Column->new(
-                        $self->class->meta->storm_table->name . '.' . $map->{$1}->column->name
+                        $self->orm->table( $self->class ) . '.' . $map->{$1}->column->name
                     );
                     
                     $_ = $column;
@@ -74,7 +74,7 @@ sub args_to_sql_objects {
                             
                             $_ = $column;
                             
-                            $self->_from( $class->meta->storm_table );
+                            $self->_from( $class->meta->storm_table  );
                             $self->_link(  $attr, $class );
                         }
                         else {
@@ -99,7 +99,7 @@ sub args_to_sql_objects {
             # replace the argument with a placeholder
             # containing the identifier
             if ( $_->does( 'Storm::Role::Object' ) ) {                
-                $_ = Storm::SQL::Placeholder->new( value => $_->identifier); 
+                $_ = Storm::SQL::Placeholder->new( value => $_->meta->primary_key->get_value($_)); 
             }
         }
     }

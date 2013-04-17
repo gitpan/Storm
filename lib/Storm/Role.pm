@@ -1,6 +1,6 @@
 package Storm::Role;
 {
-  $Storm::Role::VERSION = '0.200';
+  $Storm::Role::VERSION = '0.240';
 }
 
 use Moose;

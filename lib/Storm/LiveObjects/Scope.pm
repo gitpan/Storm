@@ -1,6 +1,6 @@
 package Storm::LiveObjects::Scope;
 {
-  $Storm::LiveObjects::Scope::VERSION = '0.200';
+  $Storm::LiveObjects::Scope::VERSION = '0.240';
 }
 
 use Moose;

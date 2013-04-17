@@ -1,6 +1,6 @@
 package Storm::Source;
 {
-  $Storm::Source::VERSION = '0.200';
+  $Storm::Source::VERSION = '0.240';
 }
 
 
@@ -95,13 +95,10 @@ sub dbh  {
     my ( $self ) = @_;
     
     # return current connection if active
-    #if ($self->_dbh && $self->_dbh->{Active}) {
-    if ( $self->_dbh ) {
-        return $self->_dbh;
-    }
+    return $self->_dbh if $self->_dbh;
     
     # otherwise create and set a new one
-    my $dbh = DBI->connect($self->parameters) or die "Could not connect to database: " . $self->parameters->[0];
+    my $dbh = DBI->connect($self->parameters);
     $dbh->{mysql_auto_reconnect} = 1;
     $self->_set_dbh($dbh);
     return $dbh;
